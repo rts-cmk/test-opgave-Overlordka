@@ -39,13 +39,23 @@ export default async function loginAction(previousState: LoginFormState, formDat
 		error: z.treeifyError(validated.error).properties,
 	};
 
+	if (validated.data.username === previousState.data?.username
+		&& validated.data.password === previousState.data?.password) {
+		return {
+			data: validated.data,
+			error: {
+				general: { errors: ["Du har ikke ændret på felterne"] }
+			}
+		}
+	}
+
 	const isUserAuthorized = await authorizeUser({ username: validated.data.username, password: validated.data.password });
 
 	if (!isUserAuthorized.success) return {
-        data:{
-            username: validated.data.username,
-            password: validated.data.password,
-        },
+		data: {
+			username: validated.data.username,
+			password: validated.data.password,
+		},
 		error: {
 			general: {
 				errors: [isUserAuthorized.message]
