@@ -56,3 +56,8 @@ export type AuthResponse = {
 	}
 }
 
+export type Consent = {
+    essential: true;
+    analytics: boolean;
+    consent: boolean;
+}

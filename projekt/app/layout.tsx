@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import BannerController from "@/ui/cookie-constent/banner-controler";
 
 
 export const metadata: Metadata = {
@@ -16,7 +17,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="da"
       className={` h-full antialiased`}
     >
-      <body className="min-h-full">{children}</body>
+      <body className="min-h-full">
+        {children}
+        <BannerController />
+        <footer>
+          <button command="show-modal" commandFor="cookie-settings">Cookie indstilinger</button> 
+        </footer>
+      </body>
     </html>
   );
 }
